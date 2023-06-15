@@ -1,11 +1,11 @@
 import styled from "@emotion/styled"
 import CryptoCoins from "./assets/imagen-criptos.png"
+import Form from "./components/Form";
 
 const Contenedor = styled.div`
     max-width: 900px;
     margin: 0 auto;
     width: 90%;
-    background-color: #293f3f;
     @media (min-width: 992px) {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
@@ -45,8 +45,10 @@ const App = () => {
             src={CryptoCoins}
             alt="Logo Criptomonedas"
         />
-
-        <Heading>Cotiza Criptomonedas al instante</Heading>
+        <div>
+            <Heading>Cotiza Criptomonedas al instante</Heading>
+            <Form />
+        </div>
     </Contenedor>
   )
 }
