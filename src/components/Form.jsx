@@ -1,6 +1,7 @@
 import styled from "@emotion/styled"
 import useSelectCoins from "../hooks/useSelectCoins";
 import { coins } from "../data/monedas";
+import { useEffect } from "react";
 
 const InputSubmit = styled.input`
     width: 100%;
@@ -21,7 +22,20 @@ const InputSubmit = styled.input`
 `;
 
 const Form = () => {
-    const [ SelectCoins ] = useSelectCoins("Seleccione su moneda", coins);
+    const [ coin, SelectCoins ] = useSelectCoins("Seleccione su moneda", coins);
+
+    useEffect(() => {
+
+        const requestApi = async () => {
+            const cryptoUrl = `https://min-api.cryptocompare.com/data/top/mktcapfull?limit=1&tsym=${coin}`;
+            const cryptoRequest = await fetch(cryptoUrl);
+            const response = await cryptoRequest.json();
+            console.log(response.Data);
+        }
+
+        requestApi();
+    }, [coin]);
+
     return (
         <form action="">
             <SelectCoins />
@@ -29,6 +43,7 @@ const Form = () => {
                 type="submit"
                 value="Cotizar"
             />
+            {coin}
         </form>
     )
 }

@@ -1,18 +1,18 @@
 const coins = [
     {
-        id: 1,
+        id: 'USD',
         name: "Dolar de Estados Unidos"
     },
     {
-        id: 2,
+        id: 'MXN',
         name: "Peso Mexicano"
     },
     {
-        id: 3,
+        id: 'EUR',
         name: "Euro"
     },
     {
-        id: 4,
+        id: 'GBP',
         name: "Libra Esterlina"
     }
 ];
