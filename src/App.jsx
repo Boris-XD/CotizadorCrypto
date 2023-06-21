@@ -2,6 +2,7 @@ import styled from "@emotion/styled"
 import CryptoCoins from "./assets/imagen-criptos.png"
 import Form from "./components/Form";
 import { useEffect, useState } from "react";
+import ShowResult from "./components/ShowResult";
 
 const Contenedor = styled.div`
     max-width: 900px;
@@ -59,7 +60,6 @@ const App = () => {
             }
 
             quotationCrypto();
-            console.log(quotation)
         }
     }, [coins]);
 
@@ -74,6 +74,9 @@ const App = () => {
                 <Form
                     setCoins={setCoins}
                 />
+                {
+                    quotation.PRICE && <ShowResult result={quotation} />
+                }
             </div>
         </Contenedor>
     )
