@@ -1,6 +1,7 @@
 import styled from "@emotion/styled"
 import CryptoCoins from "./assets/imagen-criptos.png"
 import Form from "./components/Form";
+import { useEffect, useState } from "react";
 
 const Contenedor = styled.div`
     max-width: 900px;
@@ -38,19 +39,44 @@ const Heading = styled.h1`
     }
 `;
 
+const requestCrypto = async ({ coin, crypto }) => {
+    const requestUrl = `https://min-api.cryptocompare.com/data/pricemultifull?fsyms=${crypto}&tsyms=${coin}`;
+    const response = await fetch(requestUrl);
+    const result = await response.json();
+    return result.DISPLAY[crypto][coin];
+}
+
 const App = () => {
-  return (
-    <Contenedor>
-        <Imagen 
-            src={CryptoCoins}
-            alt="Logo Criptomonedas"
-        />
-        <div>
-            <Heading>Cotiza Criptomonedas al instante</Heading>
-            <Form />
-        </div>
-    </Contenedor>
-  )
+    
+    const [ coins, setCoins ] = useState({});
+    const [ quotation, setQuotation ] = useState({});
+    
+    useEffect(() =>{
+        if(Object.keys(coins).length > 0){
+            
+            const quotationCrypto = async () => {
+                setQuotation(await requestCrypto(coins));
+            }
+
+            quotationCrypto();
+            console.log(quotation)
+        }
+    }, [coins]);
+
+    return (
+        <Contenedor>
+            <Imagen 
+                src={CryptoCoins}
+                alt="Logo Criptomonedas"
+            />
+            <div>
+                <Heading>Cotiza Criptomonedas al instante</Heading>
+                <Form
+                    setCoins={setCoins}
+                />
+            </div>
+        </Contenedor>
+    )
 }
 
 export default App
